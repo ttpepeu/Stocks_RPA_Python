@@ -1,5 +1,5 @@
-# Process of Automation
+# Process of automate values
 
- You can see in diagram how this works step by step.
+ You can see in diagram made on heflo how it works step by step.
 
 ![process](process.png)
