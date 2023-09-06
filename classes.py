@@ -16,7 +16,6 @@ directory = 'C:/#/'
 NOW = datetime.datetime.now()
 CSV = f'{directory}market-{NOW.month}-{NOW.year}.csv'
 PPTX =  f'{directory}market-{NOW.month}-{NOW.year}.pptx'
-
 DRIVER = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
 class getDatas():
@@ -26,22 +25,17 @@ class getDatas():
     def webScraping(self):
         DRIVER.get('https://www.google.com')
         DRIVER.find_element('xpath','//*[@id="APjFqb"]').send_keys(f'{self.company} stocks', Keys.ENTER)
-
-
         name = DRIVER.find_element(By.CLASS_NAME,'aMEhee').text
         value = DRIVER.find_element('xpath','//*[@id="knowledge-finance-wholepage__entity-summary"]/div[3]/g-card-section/div/g-card-section/div[2]/div[1]/span[1]/span/span[1]').text
         coin = DRIVER.find_element('xpath','//*[@id="knowledge-finance-wholepage__entity-summary"]/div[3]/g-card-section/div/g-card-section/div[2]/div[1]/span[1]/span/span[2]').text
 
         return name, value, coin
 
-    
-
 class sheets:
     def __init__(self, name, value, coin):
         self.name = name
         self.value = value
         self.coin = coin
-    
     
     def importSheet(self):
         df = pd.DataFrame({'Company': self.name, 'Value': self.value, 'Coin': self.coin})
@@ -59,16 +53,13 @@ class slide:
         prs = Presentation()
         slide = prs.slides.add_slide(prs.slide_layouts[5])
         title = slide.shapes.title
-
         rows = len(df.index)+1
         cols = len(df.columns)
         x = Inches(2.5)
         y = Inches(2.0)
         width = Inches(5.0)
         height = Inches(1.0)
-
         table = slide.shapes.add_table(rows,cols,x,y,width,height).table
-
         title.text = "Summary of Market"
 
         for company in range(cols):

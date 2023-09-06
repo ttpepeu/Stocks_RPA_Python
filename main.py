@@ -1,8 +1,5 @@
 from classes import *
 
-companies = ['google', 'amazon', 'petrobras', 'apple']
-
-
 class main:
     def __init__(self, array):
         self.array = array
@@ -18,10 +15,11 @@ class main:
             coins.append(coin)
 
         DRIVER.close()
-
         sheets(names,values,coins).importSheet()
-
         slide(CSV).importSlide()
+
+companies = ['google', 'amazon', 'petrobras', 'apple']
+
 while True:
     try:
         backup(CSV,PPTX).save()
